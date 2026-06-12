@@ -1,0 +1,200 @@
+/* dashboard.css */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-16);
+  margin-bottom: var(--spacing-24);
+}
+
+.dashboard-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-16);
+  margin-bottom: var(--spacing-24);
+}
+
+.dashboard-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-16);
+  margin-bottom: var(--spacing-24);
+}
+
+/* KPI Card */
+.kpi-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.kpi-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+}
+
+.kpi-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpi-icon-blue   { background-color: var(--color-brand-50); color: var(--color-primary); }
+.kpi-icon-green  { background-color: var(--color-success-50); color: var(--color-success); }
+.kpi-icon-yellow { background-color: var(--color-warning-50); color: var(--color-alert); }
+.kpi-icon-red    { background-color: var(--color-error-50); color: var(--color-destructive); }
+
+.kpi-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-500);
+  font-weight: var(--font-weight-medium);
+}
+
+.kpi-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.kpi-trend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.kpi-trend-up   { color: var(--color-success); }
+.kpi-trend-down { color: var(--color-destructive); }
+
+/* Kanban */
+.kanban-board {
+  display: flex;
+  gap: var(--spacing-16);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: var(--spacing-16);
+  /* Altura fixa: viewport menos header da página + toolbar + paddings */
+  height: calc(100vh - 220px);
+  align-items: flex-start;
+}
+
+.kanban-column {
+  flex-shrink: 0;
+  width: 280px;
+  background-color: var(--color-grey-50);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  /* Coluna ocupa toda a altura do board */
+  height: 100%;
+  max-height: 100%;
+}
+
+.kanban-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-12) var(--spacing-16);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.kanban-column-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.kanban-column-count {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-grey-200);
+  color: var(--color-grey-600);
+  border-radius: var(--radius-full);
+  padding: 2px var(--spacing-8);
+}
+
+.kanban-column-body {
+  flex: 1;
+  padding: var(--spacing-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  overflow-y: auto;
+  /* Crítico: permite que o flex-child encolha abaixo do tamanho do conteúdo */
+  /* Sem isso, overflow-y: auto nunca ativa — a coluna simplesmente cresce */
+  min-height: 0;
+}
+
+.kanban-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-12);
+  cursor: pointer;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.kanban-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-grey-300);
+}
+
+.kanban-card-company {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-4);
+}
+
+.kanban-card-client {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-500);
+  margin-bottom: var(--spacing-8);
+}
+
+.kanban-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-8);
+}
+
+.kanban-card-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+  .dashboard-grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ─── Real-Time: pulse visual em cards atualizados remotamente ─────────────── */
+
+@keyframes kanban-card-pulse {
+  0% {
+    box-shadow: 0 0 0 2px var(--color-primary), 0 0 12px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 3px var(--color-primary), 0 0 16px rgba(59, 130, 246, 0.25);
+  }
+  100% {
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+.kanban-card-updated {
+  border-color: var(--color-primary) !important;
+}

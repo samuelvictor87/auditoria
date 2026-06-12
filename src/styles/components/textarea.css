@@ -1,0 +1,65 @@
+/* textarea.css — CRM Dibracam */
+
+.textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: 100%;
+}
+
+.textarea-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-grey-700);
+}
+
+.textarea-label-required::after {
+  content: ' *';
+  color: var(--color-destructive);
+}
+
+.textarea-field {
+  width: 100%;
+  min-height: 80px;
+  padding: var(--spacing-8) var(--spacing-12);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-grey-300);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  resize: vertical;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  line-height: 1.5;
+}
+
+.textarea-field::placeholder {
+  color: var(--color-grey-400);
+}
+
+.textarea-field:focus {
+  border-color: var(--color-brand-400);
+  box-shadow: var(--shadow-xs);
+}
+
+.textarea-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-grey-50);
+  resize: none;
+}
+
+.textarea-field--error {
+  border-color: var(--color-destructive);
+}
+
+.textarea-field--error:focus {
+  border-color: var(--color-destructive);
+  box-shadow: 0 0 0 2px var(--color-error-50);
+}
+
+.textarea-error-msg {
+  font-size: var(--font-size-sm);
+  color: var(--color-destructive);
+}

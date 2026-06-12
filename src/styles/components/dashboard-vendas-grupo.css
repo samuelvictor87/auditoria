@@ -1,0 +1,370 @@
+/* =====================================================
+   DASHBOARD-VENDAS-GRUPO.CSS — Vendas por Grupo
+   CRM Dibracam — segue tokens.css
+   ===================================================== */
+
+/* ── Página ───────────────────────────────────────── */
+.vg-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+/* ── Barra de filtros (padrão RepFilial) ──────────── */
+.vg-filters {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-16) var(--spacing-24);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-xs);
+}
+
+.vg-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 140px;
+  flex: 1;
+}
+
+.vg-filter-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vg-select,
+.vg-date-input {
+  height: 38px;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: 0 var(--spacing-12);
+  font-size: var(--font-size-md);
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+}
+
+.vg-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667085' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-color: var(--color-surface);
+  padding-right: var(--spacing-32);
+}
+
+.vg-select:focus,
+.vg-date-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 26, 79, 0.1);
+}
+
+.vg-filters-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-8);
+  padding-bottom: 1px;
+  flex-shrink: 0;
+}
+
+/* ── KPI Cards (padrão Clientes / Detalhe) ─────────── */
+.vg-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.vg-kpi-card {
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  min-height: 96px;
+}
+
+.vg-kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.vg-kpi-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.vg-kpi-value.negative { color: #ef4444; }
+.vg-kpi-value.positive { color: #10b981; }
+
+.vg-kpi-growth {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+.vg-kpi-growth.up   { color: #10b981; }
+.vg-kpi-growth.down { color: #ef4444; }
+
+/* ── Bloco de gráficos — linha central ─────────────── */
+.vg-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+  align-items: stretch;
+}
+
+/* Gráfico de linha principal */
+.vg-chart-main {
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Coluna da direita — 2 doughnuts empilhados */
+.vg-chart-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vg-chart-donut {
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  flex: 1;
+}
+
+/* Título de seção nos gráficos */
+.vg-chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 16px 0;
+}
+
+/* ── Legenda dos Doughnut ─────────────────────────── */
+.vg-donut-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.vg-donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  width: 100%;
+}
+
+.vg-donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+}
+
+.vg-donut-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.vg-donut-legend-pct {
+  margin-left: auto;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-600);
+}
+
+/* ── Blocos de Ranking ────────────────────────────── */
+.vg-ranking-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.vg-ranking-block {
+  background: #ffffff;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vg-ranking-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.vg-ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 8px; /* afasta um pouco do scrollbar */
+}
+
+/* Item de ranking com barra de progresso */
+.vg-rank-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vg-rank-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.vg-rank-item-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55%;
+}
+
+.vg-rank-item-meta {
+  font-size: 12px;
+  color: #64748b;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.vg-rank-bar-bg {
+  height: 22px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.vg-rank-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  transition: width 0.5s ease;
+  min-width: 40px;
+}
+
+.vg-rank-bar-fill span {
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Cores alternadas para barras */
+.vg-rank-bar-fill.c0 { background: #007bff; }
+.vg-rank-bar-fill.c1 { background: #17a2b8; }
+.vg-rank-bar-fill.c2 { background: #ffc107; }
+.vg-rank-bar-fill.c3 { background: #28a745; }
+.vg-rank-bar-fill.c4 { background: #dc3545; }
+.vg-rank-bar-fill.c5 { background: #6f42c1; }
+.vg-rank-bar-fill.c6 { background: #fd7e14; }
+.vg-rank-bar-fill.c7 { background: #20c997; }
+.vg-rank-bar-fill.c8 { background: #e83e8c; }
+.vg-rank-bar-fill.c9 { background: #6610f2; }
+
+/* ── Estado inicial (pré-filtro) ─── padrão RepFilial */
+.vg-initial-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-48);
+  text-align: center;
+  gap: var(--spacing-16);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-grey-300);
+  border-radius: var(--radius-xl);
+}
+
+.vg-initial-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.vg-initial-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.vg-initial-desc {
+  font-size: var(--font-size-md);
+  color: var(--color-grey-500);
+  max-width: 400px;
+  margin: 0;
+}
+
+/* ── Responsividade ───────────────────────────────── */
+@media (max-width: 1200px) {
+  .vg-kpi-grid   { grid-template-columns: repeat(2, 1fr); }
+  .vg-charts-row { grid-template-columns: 1fr; }
+  .vg-chart-side { max-width: 100%; flex-direction: row; }
+  .vg-chart-donut { flex: 1; }
+}
+
+@media (max-width: 900px) {
+  .vg-ranking-row { grid-template-columns: 1fr; }
+  .vg-chart-side  { flex-direction: column; }
+  .vg-filters     { flex-direction: column; align-items: stretch; }
+}
+
+@media (max-width: 540px) {
+  .vg-kpi-grid { grid-template-columns: 1fr; }
+}

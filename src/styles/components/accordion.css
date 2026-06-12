@@ -1,0 +1,83 @@
+/* =====================================================
+   ACCORDION.CSS — CRM Dibracam
+   ===================================================== */
+
+.accordion {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.accordion-item {
+  border-bottom: 1px solid var(--color-grey-100);
+}
+
+.accordion-item:last-child {
+  border-bottom: none;
+}
+
+/* ─── Header / Trigger ─── */
+.accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  text-align: left;
+  transition: background var(--transition-fast);
+}
+
+.accordion-header:hover {
+  background: var(--color-grey-50);
+}
+
+.accordion-header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.accordion-chevron {
+  color: var(--color-grey-400);
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.accordion-chevron-open {
+  transform: rotate(180deg);
+}
+
+/* ─── Content ─── */
+.accordion-content {
+  padding: 0 var(--spacing-16) var(--spacing-16);
+  font-size: var(--font-size-md);
+  color: var(--color-grey-600);
+  line-height: 1.6;
+}
+
+/* ─── Variant: table-row ─── */
+.accordion-table-row {
+  border: none;
+  border-radius: 0;
+}
+
+.accordion-table-row .accordion-item {
+  border-bottom: 1px solid var(--color-grey-100);
+}
+
+.accordion-table-row .accordion-header {
+  padding: var(--spacing-8) var(--spacing-12);
+  font-size: var(--font-size-sm);
+}
+
+.accordion-table-row .accordion-content {
+  padding: var(--spacing-8) var(--spacing-12) var(--spacing-12);
+  background: var(--color-grey-50);
+}

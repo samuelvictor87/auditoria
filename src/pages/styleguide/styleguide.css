@@ -1,0 +1,400 @@
+/* =====================================================
+   STYLEGUIDE.CSS — CRM Dibracam
+   Design System / Style Guide — Layout da documentação
+   ===================================================== */
+
+/* ─── Layout principal ─── */
+.sg-layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: var(--font-family-base);
+  background: var(--color-background);
+}
+
+/* ─── Sidebar ─── */
+.sg-sidebar {
+  width: 240px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--color-grey-200);
+  padding: var(--spacing-24) 0;
+  background: var(--color-surface);
+  z-index: 50;
+}
+
+.sg-sidebar-brand {
+  padding: 0 var(--spacing-16) var(--spacing-16);
+  border-bottom: 1px solid var(--color-grey-100);
+  margin-bottom: var(--spacing-16);
+}
+
+.sg-sidebar-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.sg-sidebar-sub {
+  margin: var(--spacing-4) 0 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-400);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sg-sidebar-category {
+  padding: var(--spacing-16) var(--spacing-16) var(--spacing-4);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-400);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.sg-sidebar-item {
+  display: block;
+  width: 100%;
+  padding: 6px var(--spacing-16) 6px var(--spacing-24);
+  border: none;
+  background: none;
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-600);
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+}
+
+.sg-sidebar-item:hover {
+  color: var(--color-text);
+  background: var(--color-grey-50);
+}
+
+.sg-sidebar-item-active {
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+  border-left-color: var(--color-primary);
+  background: var(--color-brand-50);
+}
+
+.sg-sidebar-back {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: 0 var(--spacing-16) var(--spacing-12);
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-500);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.sg-sidebar-back:hover {
+  color: var(--color-primary);
+}
+
+/* ─── Main content ─── */
+.sg-main {
+  flex: 1;
+  margin-left: 240px;
+  padding: var(--spacing-48) var(--spacing-48);
+  max-width: 960px;
+}
+
+.sg-main-title {
+  margin: 0 0 var(--spacing-8);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.sg-main-desc {
+  margin: 0 0 var(--spacing-48);
+  font-size: var(--font-size-lg);
+  color: var(--color-grey-500);
+}
+
+/* ─── Section ─── */
+.sg-section {
+  margin-bottom: var(--spacing-48);
+  scroll-margin-top: var(--spacing-24);
+}
+
+.sg-section-title {
+  margin: 0 0 var(--spacing-4);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.sg-section-desc {
+  margin: 0 0 var(--spacing-24);
+  font-size: var(--font-size-md);
+  color: var(--color-grey-500);
+}
+
+.sg-subsection-title {
+  margin: var(--spacing-32) 0 var(--spacing-12);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-400);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+/* ─── Grids genéricos ─── */
+.sg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--spacing-16);
+}
+
+.sg-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.sg-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.sg-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.sg-grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+.sg-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-12);
+  align-items: flex-start;
+}
+
+.sg-flex-center {
+  align-items: center;
+}
+
+/* ─── Color swatch ─── */
+.sg-color-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.sg-color-swatch {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+}
+
+.sg-color-info {
+  padding: var(--spacing-8) var(--spacing-12);
+  background: var(--color-surface);
+}
+
+.sg-color-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.sg-color-token {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-400);
+  margin: 2px 0 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ─── Spacing blocks ─── */
+.sg-spacing-item {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-8);
+  flex-direction: column;
+  text-align: center;
+}
+
+.sg-spacing-block {
+  background: var(--color-text);
+  flex-shrink: 0;
+}
+
+.sg-spacing-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-500);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ─── Radius demos ─── */
+.sg-radius-card {
+  width: 80px;
+  height: 80px;
+  background: var(--color-grey-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.sg-radius-label {
+  font-size: 10px;
+  color: var(--color-grey-600);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-semibold);
+}
+
+.sg-radius-value {
+  font-size: 10px;
+  color: var(--color-grey-400);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ─── Shadow demos ─── */
+.sg-shadow-card {
+  width: 100px;
+  height: 80px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+/* ─── Code block ─── */
+.sg-code-block {
+  position: relative;
+  background: var(--color-grey-50);
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-16);
+  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-700);
+  overflow-x: auto;
+  line-height: 1.6;
+  white-space: pre;
+  margin-top: var(--spacing-12);
+}
+
+/* ─── Preview container ─── */
+.sg-preview {
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-24);
+  margin-bottom: var(--spacing-12);
+  background: var(--color-surface);
+}
+
+.sg-preview-label {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-400);
+  letter-spacing: 0.6px;
+  margin-bottom: var(--spacing-12);
+}
+
+/* ─── Icon grid ─── */
+.sg-icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-16);
+  border: 1px solid var(--color-grey-100);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.sg-icon-card:hover {
+  border-color: var(--color-grey-300);
+  background: var(--color-grey-50);
+}
+
+.sg-icon-name {
+  font-size: 10px;
+  color: var(--color-grey-500);
+  text-align: center;
+  word-break: break-word;
+}
+
+/* ─── Component info ─── */
+.sg-component-info {
+  display: flex;
+  gap: var(--spacing-24);
+  margin-top: var(--spacing-16);
+}
+
+.sg-do-list, .sg-dont-list {
+  flex: 1;
+}
+
+.sg-do-list h4, .sg-dont-list h4 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-8);
+}
+
+.sg-do-list h4 { color: var(--color-success); }
+.sg-dont-list h4 { color: var(--color-destructive); }
+
+.sg-do-list ul, .sg-dont-list ul {
+  margin: 0;
+  padding-left: var(--spacing-16);
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-600);
+  list-style: disc;
+}
+
+.sg-do-list li, .sg-dont-list li {
+  margin-bottom: var(--spacing-4);
+}
+
+/* ─── Typo samples ─── */
+.sg-typo-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-24);
+  padding: var(--spacing-12) 0;
+  border-bottom: 1px solid var(--color-grey-50);
+}
+
+.sg-typo-sample {
+  flex: 1;
+  color: var(--color-text);
+}
+
+.sg-typo-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-400);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  min-width: 180px;
+  text-align: right;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 900px) {
+  .sg-sidebar {
+    width: 200px;
+  }
+  .sg-main {
+    margin-left: 200px;
+    padding: var(--spacing-24);
+  }
+  .sg-grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .sg-grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .sg-sidebar {
+    display: none;
+  }
+  .sg-main {
+    margin-left: 0;
+    padding: var(--spacing-16);
+  }
+}

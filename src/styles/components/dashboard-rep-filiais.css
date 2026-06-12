@@ -1,0 +1,327 @@
+/* =====================================================
+   DASHBOARD-REP-FILIAIS.CSS — Dashboard de Representantes e Filiais
+   CRM Dibracam — segue tokens.css
+   ===================================================== */
+
+/* ── Página ───────────────────────────────────────── */
+.rep-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+/* ── Barra de filtros ─────────────────────────────── */
+.rep-filters {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-16) var(--spacing-24);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-xs);
+}
+
+.rep-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 140px;
+  flex: 1;
+}
+
+.rep-filter-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Select nativo padronizado */
+.rep-select {
+  height: 38px;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: 0 var(--spacing-12);
+  font-size: var(--font-size-md);
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667085' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.rep-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 26, 79, 0.1);
+}
+
+.rep-filters-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-8);
+  padding-bottom: 1px;
+  flex-shrink: 0;
+}
+
+/* ── Toggle "Tirar SP" ───────────────────────────── */
+.rep-toggle-sp {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8) var(--spacing-12);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  background: var(--color-surface);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-grey-600);
+  transition: all var(--transition-fast);
+  user-select: none;
+  white-space: nowrap;
+  height: 38px;
+}
+
+.rep-toggle-sp:hover {
+  border-color: var(--color-grey-400);
+  color: var(--color-text);
+}
+
+.rep-toggle-sp.active {
+  background: var(--color-brand-50);
+  border-color: var(--color-brand-400);
+  color: var(--color-brand-400);
+  font-weight: var(--font-weight-semibold);
+}
+
+.rep-toggle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-grey-300);
+  transition: background var(--transition-fast);
+}
+
+.rep-toggle-sp.active .rep-toggle-dot {
+  background: var(--color-brand-400);
+}
+
+/* ── KPIs ─────────────────────────────────────────── */
+.rep-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-16);
+}
+
+/* ── Seção com título ─────────────────────────────── */
+.rep-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.rep-section-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* ── Grids de gráficos ────────────────────────────── */
+.rep-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-16);
+}
+
+.rep-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-16);
+}
+
+/* ── Card de gráfico ─────────────────────────────── */
+.rep-chart-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-20, 20px);
+  box-shadow: var(--shadow-xs);
+}
+
+.rep-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-16);
+}
+
+.rep-chart-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.rep-chart-badge-sp {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-400);
+  background: var(--color-brand-50);
+  border: 1px solid var(--color-brand-200);
+  border-radius: var(--radius-full);
+  padding: 2px 8px;
+}
+
+/* ── Tabela de clientes ───────────────────────────── */
+.rep-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.rep-table th {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: var(--spacing-8) var(--spacing-12);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.rep-table td {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  padding: var(--spacing-10, 10px) var(--spacing-12);
+  border-bottom: 1px solid var(--color-grey-100);
+  vertical-align: middle;
+}
+
+.rep-table tr:last-child td {
+  border-bottom: none;
+}
+
+.rep-table tr:hover td {
+  background: var(--color-grey-50);
+}
+
+.rep-table .rep-table-value {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-align: right;
+}
+
+.rep-table .rep-table-rank {
+  color: var(--color-grey-400);
+  font-size: var(--font-size-xs);
+  width: 28px;
+}
+
+/* ── Meta vs Realizado (barra de progresso) ──────── */
+.rep-meta-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.rep-meta-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rep-meta-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-500);
+}
+
+.rep-meta-pct {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.rep-meta-bar-bg {
+  height: 8px;
+  background: var(--color-grey-100);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.rep-meta-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.6s ease;
+}
+
+.rep-meta-bar-fill.success { background: var(--color-success); }
+.rep-meta-bar-fill.warning { background: var(--color-alert); }
+.rep-meta-bar-fill.danger  { background: var(--color-destructive); }
+
+.rep-meta-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-500);
+}
+
+/* ── Estado inicial (pré-filtro) ──────────────────── */
+.rep-initial-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-48);
+  text-align: center;
+  gap: var(--spacing-16);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-grey-300);
+  border-radius: var(--radius-xl);
+}
+
+.rep-initial-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.rep-initial-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.rep-initial-desc {
+  font-size: var(--font-size-md);
+  color: var(--color-grey-500);
+  max-width: 400px;
+  margin: 0;
+}
+
+/* ── Responsividade ───────────────────────────────── */
+@media (max-width: 1200px) {
+  .rep-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .rep-grid-3   { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 900px) {
+  .rep-grid-2, .rep-grid-3 { grid-template-columns: 1fr; }
+  .rep-kpi-grid             { grid-template-columns: repeat(2, 1fr); }
+  .rep-filters              { flex-direction: column; align-items: stretch; }
+}

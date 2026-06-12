@@ -1,0 +1,466 @@
+/* styles/components/metas-gerenciais.css — CRM Dibracam */
+/* Prefixo: mg- */
+
+/* ── Seção principal ─────────────────────────────────────────── */
+.mg-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.mg-section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mg-section-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.mg-section-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-500);
+  margin: 0;
+}
+
+/* ── Filtros ──────────────────────────────────────────────────── */
+.mg-filters {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-16) var(--spacing-24);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-xs);
+}
+
+.mg-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 120px;
+  flex: 1;
+}
+
+.mg-filter-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mg-select {
+  height: 38px;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: 0 var(--spacing-12);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  background: var(--color-surface);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  cursor: pointer;
+  width: 100%;
+}
+
+.mg-select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 26, 79, 0.1);
+}
+
+.mg-filters-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-8);
+  padding-bottom: 1px;
+  flex-shrink: 0;
+}
+
+/* ── KPI Grid ────────────────────────────────────────────────── */
+.mg-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-16);
+}
+
+.mg-kpi-card {
+  background: #ffffff;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: var(--shadow-xs);
+  min-height: 96px;
+}
+
+.mg-kpi-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.mg-kpi-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.mg-kpi-value--positive { color: #10b981; }
+.mg-kpi-value--negative { color: #ef4444; }
+
+/* ── Tabela ──────────────────────────────────────────────────── */
+.mg-table-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.mg-table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-16) var(--spacing-24);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.mg-table-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.mg-table-count {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-500);
+}
+
+/* ── Scroll Container (visível) ──────────────────────────────── */
+.mg-table-wrap {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 560px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Scrollbar visível - WebKit */
+.mg-table-wrap::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.mg-table-wrap::-webkit-scrollbar-track {
+  background: var(--color-grey-100);
+  border-radius: 6px;
+}
+
+.mg-table-wrap::-webkit-scrollbar-thumb {
+  background: var(--color-grey-400);
+  border-radius: 6px;
+  border: 2px solid var(--color-grey-100);
+}
+
+.mg-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: var(--color-grey-500);
+}
+
+/* Scrollbar visível - Firefox */
+.mg-table-wrap {
+  scrollbar-width: auto;
+  scrollbar-color: var(--color-grey-400) var(--color-grey-100);
+}
+
+/* Scrollbar corner */
+.mg-table-wrap::-webkit-scrollbar-corner {
+  background: var(--color-grey-100);
+}
+
+/* ── Tabela principal ────────────────────────────────────────── */
+.mg-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1400px;
+  table-layout: auto;
+}
+
+/* ── THEAD (Sticky Top) ──────────────────────────────────────── */
+/* O sticky é aplicado nas TH individuais para garantir background sólido */
+.mg-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f9fafb;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  padding: var(--spacing-8) var(--spacing-12);
+  border-bottom: 1px solid var(--color-grey-200);
+  white-space: nowrap;
+}
+
+.mg-table th.text-right,
+.mg-table td.text-right {
+  text-align: right;
+}
+
+.mg-table th.text-center,
+.mg-table td.text-center {
+  text-align: center;
+}
+
+/* ── TBODY ───────────────────────────────────────────────────── */
+.mg-table td {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  padding: 10px var(--spacing-12);
+  border-bottom: 1px solid var(--color-grey-100);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* ─── HOVER DESATIVADO — tabela de representantes ───────────────
+   Nenhuma célula pode mudar de cor ao passar o mouse.
+   Usando !important para sobrepor qualquer regra global.
+──────────────────────────────────────────────────────────────── */
+.mg-table tbody tr {
+  /* Remove qualquer transition de background herdada */
+  transition: none !important;
+}
+
+/* Linhas neutras (sem classe de status) — mantém fundo transparente */
+.mg-table tbody tr:hover td {
+  background-color: transparent !important;
+}
+
+/* Linhas de sucesso — mantém verde claro original */
+.mg-table tbody tr.mg-row-success:hover td {
+  background-color: rgba(16, 185, 129, 0.06) !important;
+}
+
+/* Linhas de perigo — mantém vermelho claro original */
+.mg-table tbody tr.mg-row-danger:hover td {
+  background-color: rgba(239, 68, 68, 0.05) !important;
+}
+
+/* Sticky col-1 em linha de sucesso no hover */
+.mg-table tbody tr.mg-row-success:hover td.mg-sticky-col-1,
+.mg-table tbody tr.mg-row-success:hover td.mg-sticky-col-2 {
+  background-color: #f0fdf4 !important;
+}
+
+/* Sticky col-1 em linha de perigo no hover */
+.mg-table tbody tr.mg-row-danger:hover td.mg-sticky-col-1,
+.mg-table tbody tr.mg-row-danger:hover td.mg-sticky-col-2 {
+  background-color: #fef2f2 !important;
+}
+
+/* ── Sticky Columns: Código (col 1) ─────────────────────────── */
+.mg-sticky-col-1 {
+  position: sticky !important;
+  left: 0;
+  z-index: 3;
+  background: var(--color-surface) !important;
+  min-width: 80px;
+  max-width: 100px;
+}
+
+/* Sombra ao scroll */
+.mg-sticky-col-1::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -1px;
+  bottom: 0;
+  width: 0;
+}
+
+/* ── Sticky Columns: Representante (col 2) ───────────────────── */
+.mg-sticky-col-2 {
+  position: sticky !important;
+  left: 80px;
+  z-index: 3;
+  background: var(--color-surface) !important;
+  min-width: 220px;
+  max-width: 280px;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Sticky Columns no THEAD (z-index acima das th normais=10) ── */
+.mg-table thead th.mg-sticky-col-1 {
+  z-index: 12;
+  background: #f9fafb !important;
+}
+
+.mg-table thead th.mg-sticky-col-2 {
+  z-index: 12;
+  background: #f9fafb !important;
+}
+
+/* ── Sticky Columns no TFOOT ─────────────────────────────────── */
+.mg-table tfoot td.mg-sticky-col-1 {
+  z-index: 5;
+  background: #f1f5f9 !important;
+}
+
+.mg-table tfoot td.mg-sticky-col-2 {
+  z-index: 5;
+  background: #f1f5f9 !important;
+}
+
+/* ── Cores de status das linhas ──────────────────────────────── */
+
+/* Linha de sucesso — fundo verde claro nas td normais */
+.mg-row-success td {
+  background-color: rgba(16, 185, 129, 0.06);
+}
+
+/* Sticky cols da linha de sucesso */
+.mg-row-success td.mg-sticky-col-1,
+.mg-row-success td.mg-sticky-col-2 {
+  background-color: #f0fdf4 !important;
+}
+
+/* Linha de perigo — fundo vermelho claro nas td normais */
+.mg-row-danger td {
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+/* Sticky cols da linha de perigo */
+.mg-row-danger td.mg-sticky-col-1,
+.mg-row-danger td.mg-sticky-col-2 {
+  background-color: #fef2f2 !important;
+}
+
+/* Valor monetário na tabela */
+.mg-td-currency {
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.mg-td-negative {
+  color: #ef4444;
+}
+
+.mg-td-positive {
+  color: #10b981;
+}
+
+/* Badge Alcançou */
+.mg-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.mg-badge--sim {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.mg-badge--nao {
+  background: rgba(239, 68, 68, 0.08);
+  color: #dc2626;
+}
+
+/* Representante cell */
+.mg-rep-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mg-rep-name {
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Totais (rodapé tabela — TFOOT sticky bottom) ────────────── */
+.mg-table tfoot td {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  font-weight: 700;
+  background: #f1f5f9;
+  border-top: 2px solid var(--color-grey-300);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  padding: 11px var(--spacing-12);
+  white-space: nowrap;
+}
+
+.mg-table tfoot td.text-right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Ordenação de colunas (padrão Rentabilidade) ─────────────── */
+.mg-th-sortable {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mg-th-sortable:hover {
+  background-color: var(--color-grey-100) !important;
+}
+
+.mg-th-sorted {
+  /* Background sólido obrigatório para evitar transparência no sticky header */
+  background-color: var(--color-grey-100) !important;
+  color: var(--color-primary) !important;
+}
+
+/* ── Responsividade ──────────────────────────────────────────── */
+@media (max-width: 1200px) {
+  .mg-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .mg-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mg-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .mg-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}

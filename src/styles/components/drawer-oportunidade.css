@@ -1,0 +1,681 @@
+/* drawer-oportunidade.css — CRM Dibracam */
+
+/* ─── Overlay ─────────────────────────────────────────────────────────────── */
+.dop-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  justify-content: flex-end;
+  animation: dop-overlay-in 200ms ease;
+}
+
+.dop-overlay-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 24, 40, 0.45);
+}
+
+@keyframes dop-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Drawer principal ────────────────────────────────────────────────────── */
+.dop-drawer {
+  position: relative;
+  width: 90vw;
+  max-width: 1400px;
+  height: 100vh;
+  background-color: var(--color-surface);
+  box-shadow: -8px 0 32px rgba(16, 24, 40, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: dop-slide-in 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+}
+
+@keyframes dop-slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+/* ─── Header ──────────────────────────────────────────────────────────────── */
+.dop-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: 0 var(--spacing-24);
+  height: 56px;
+  min-height: 56px;
+  border-bottom: 1px solid var(--color-grey-200);
+  flex-shrink: 0;
+  background: var(--color-surface);
+}
+
+.dop-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  flex: 1;
+  min-width: 0;
+}
+
+.dop-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: none;
+  background: transparent;
+  color: var(--color-grey-500);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dop-close-btn:hover {
+  background-color: var(--color-grey-100);
+  color: var(--color-text);
+}
+
+.dop-header-code {
+  font-size: var(--font-size-sm);
+  font-family: monospace;
+  color: var(--color-grey-400);
+  flex-shrink: 0;
+}
+
+.dop-header-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dop-header-vendedor {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex-shrink: 0;
+  padding-left: var(--spacing-12);
+  border-left: 1px solid var(--color-grey-200);
+}
+
+.dop-header-vendedor-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-600);
+  white-space: nowrap;
+}
+
+.dop-vendedor-select {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-600);
+  font-weight: var(--font-weight-medium);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 2px 24px 2px 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.dop-vendedor-select:hover {
+  border-color: var(--color-grey-300);
+  background-color: var(--color-grey-50);
+}
+
+.dop-vendedor-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: var(--color-surface);
+}
+
+.dop-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex-shrink: 0;
+}
+
+/* ─── Status badge no header ──────────────────────────────────────────────── */
+.dop-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  flex-shrink: 0;
+}
+
+.dop-status-aberta   { background: var(--color-brand-50); color: var(--color-primary); }
+.dop-status-ganha    { background: var(--color-success-50); color: var(--color-success); }
+.dop-status-perdida  { background: var(--color-error-50); color: var(--color-destructive); }
+.dop-status-cancelada { background: var(--color-grey-100); color: var(--color-grey-600); }
+.dop-status-arquivada { background: var(--color-grey-100); color: var(--color-grey-600); }
+
+/* ─── Dropdown de ações ───────────────────────────────────────────────────── */
+.dop-dropdown-wrapper {
+  position: relative;
+}
+
+.dop-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 200px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 10;
+  overflow: hidden;
+  animation: dop-dropdown-in 150ms ease;
+}
+
+@keyframes dop-dropdown-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dop-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  width: 100%;
+  padding: var(--spacing-8) var(--spacing-12);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color var(--transition-fast);
+}
+
+.dop-dropdown-item:hover {
+  background-color: var(--color-grey-50);
+}
+
+.dop-dropdown-item-danger {
+  color: var(--color-destructive);
+}
+
+.dop-dropdown-item-danger:hover {
+  background-color: var(--color-error-50);
+}
+
+/* ─── Tracker de estágios ─────────────────────────────────────────────────── */
+.dop-tracker {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-24);
+  height: 52px;
+  min-height: 52px;
+  border-bottom: 1px solid var(--color-grey-200);
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 0;
+}
+
+.dop-tracker::-webkit-scrollbar { display: none; }
+
+.dop-tracker-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.dop-tracker-step {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  white-space: nowrap;
+}
+
+.dop-tracker-step:hover {
+  background-color: var(--color-grey-100);
+  transform: scale(1.02);
+}
+
+.dop-tracker-step-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.dop-tracker-step-icon-done {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.dop-tracker-step-icon-current {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.dop-tracker-step-icon-future {
+  background: var(--color-grey-200);
+  color: var(--color-grey-500);
+}
+
+.dop-tracker-step-label {
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+}
+
+.dop-tracker-step-label-done    { color: var(--color-success); }
+.dop-tracker-step-label-current { color: var(--color-primary); font-weight: var(--font-weight-semibold); }
+.dop-tracker-step-label-future  { color: var(--color-grey-400); }
+
+.dop-tracker-connector {
+  width: 28px;
+  height: 2px;
+  flex-shrink: 0;
+}
+
+.dop-tracker-connector-done   { background: var(--color-success); }
+.dop-tracker-connector-future { background: var(--color-grey-200); }
+
+/* ─── Tabs ────────────────────────────────────────────────────────────────── */
+.dop-tabs-list {
+  display: flex;
+  border-bottom: 2px solid var(--color-grey-200);
+  padding: 0 var(--spacing-24);
+  flex-shrink: 0;
+  height: 40px;
+  align-items: flex-end;
+}
+
+.dop-tab-trigger {
+  padding: 0 var(--spacing-16);
+  height: 40px;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-grey-500);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.dop-tab-trigger:hover {
+  color: var(--color-text);
+}
+
+.dop-tab-trigger-active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* ─── Área de conteúdo da aba ─────────────────────────────────────────────── */
+.dop-tab-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--spacing-24);
+}
+
+/* ─── Aba Geral — grid 2 colunas ─────────────────────────────────────────── */
+.dop-geral-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-24);
+  height: 100%;
+  align-content: start;
+}
+
+.dop-geral-block {
+  background: var(--color-grey-50);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-grey-200);
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.dop-geral-block-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-4) 0;
+  padding-bottom: var(--spacing-12);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+/* Campo read-only */
+.dop-readonly-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dop-readonly-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.dop-readonly-value {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.dop-readonly-value-empty {
+  color: var(--color-grey-400);
+  font-style: italic;
+}
+
+/* Origem do lead */
+.dop-origem-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  background: var(--color-grey-100);
+  color: var(--color-grey-700);
+  border: 1px solid var(--color-grey-300);
+}
+
+/* Botão salvar do bloco */
+.dop-block-save-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--spacing-8);
+  padding-top: var(--spacing-12);
+  border-top: 1px solid var(--color-grey-200);
+}
+
+/* ─── Aba Contatos ─────────────────────────────────────────────────────────── */
+.dop-contacts-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-16);
+}
+
+.dop-contacts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.dop-contacts-table th {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-align: left;
+  padding: var(--spacing-8) var(--spacing-12);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.dop-contacts-table td {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  padding: var(--spacing-12);
+  border-bottom: 1px solid var(--color-grey-100);
+  vertical-align: middle;
+}
+
+.dop-contacts-table tr:hover td {
+  background-color: var(--color-grey-50);
+}
+
+.dop-contact-main-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  background: var(--color-brand-50);
+  color: var(--color-primary);
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  margin-left: 6px;
+}
+
+.dop-contact-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.dop-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-grey-400);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.dop-icon-btn:hover {
+  background-color: var(--color-grey-100);
+  color: var(--color-text);
+}
+
+.dop-icon-btn-danger:hover {
+  background-color: var(--color-error-50);
+  color: var(--color-destructive);
+}
+
+/* ─── Aba Arquivos ─────────────────────────────────────────────────────────── */
+.dop-upload-zone {
+  border: 2px dashed var(--color-grey-300);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-24);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  margin-bottom: var(--spacing-16);
+}
+
+.dop-upload-zone:hover,
+.dop-upload-zone-dragover {
+  border-color: var(--color-primary);
+  background-color: var(--color-brand-50);
+}
+
+.dop-upload-zone-icon {
+  color: var(--color-grey-400);
+  margin-bottom: var(--spacing-8);
+}
+
+.dop-upload-zone-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+.dop-upload-zone-subtext {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-400);
+  margin-top: var(--spacing-4);
+}
+
+.dop-arquivo-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-12) var(--spacing-16);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.dop-arquivo-row:hover {
+  background-color: var(--color-grey-50);
+}
+
+.dop-arquivo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dop-arquivo-icon-pdf  { background: #FEE2E2; color: #DC2626; }
+.dop-arquivo-icon-doc  { background: #DBEAFE; color: #2563EB; }
+.dop-arquivo-icon-xls  { background: #DCFCE7; color: #16A34A; }
+.dop-arquivo-icon-ppt  { background: #FEF3C7; color: #D97706; }
+.dop-arquivo-icon-img  { background: #F3E8FF; color: #9333EA; }
+.dop-arquivo-icon-file { background: var(--color-grey-100); color: var(--color-grey-600); }
+
+.dop-arquivo-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.dop-arquivo-nome {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dop-arquivo-nome:hover {
+  text-decoration: underline;
+}
+
+.dop-arquivo-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-400);
+  margin-top: 2px;
+}
+
+/* ─── Contato Drawer secundário ───────────────────────────────────────────── */
+.dop-contato-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 420px;
+  max-width: 90vw;
+  background-color: var(--color-surface);
+  box-shadow: -8px 0 32px rgba(16, 24, 40, 0.18);
+  z-index: calc(var(--z-modal) + 10);
+  display: flex;
+  flex-direction: column;
+  animation: dop-slide-in 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dop-contato-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-16) var(--spacing-24);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.dop-contato-drawer-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.dop-contato-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.dop-contato-drawer-footer {
+  padding: var(--spacing-16) var(--spacing-24);
+  border-top: 1px solid var(--color-grey-200);
+  display: flex;
+  gap: var(--spacing-8);
+  justify-content: flex-end;
+}
+
+/* ─── Placeholder de aba ─────────────────────────────────────────────────── */
+.dop-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 260px;
+  gap: var(--spacing-12);
+  color: var(--color-grey-400);
+}
+
+.dop-placeholder-icon {
+  opacity: 0.4;
+}
+
+.dop-placeholder-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+}
+
+.dop-placeholder-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-400);
+  text-align: center;
+  max-width: 280px;
+}
+
+/* ─── Separador inline ───────────────────────────────────────────────────── */
+.dop-divider {
+  height: 1px;
+  background: var(--color-grey-200);
+  margin: var(--spacing-4) 0;
+}

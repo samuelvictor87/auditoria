@@ -1,0 +1,119 @@
+/* =====================================================
+   DRAWER.CSS — CRM Dibracam
+   Componente Drawer genérico (lateral)
+   ===================================================== */
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+}
+
+.drawer-overlay-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.drawer-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  animation: drawer-slide-in var(--transition-base) forwards;
+  max-width: 100vw;
+}
+
+.drawer-right {
+  right: 0;
+  animation-name: drawer-slide-right;
+}
+
+.drawer-left {
+  left: 0;
+  animation-name: drawer-slide-left;
+}
+
+@keyframes drawer-slide-right {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+@keyframes drawer-slide-left {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+/* ─── Header ─── */
+.drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--spacing-16) var(--spacing-24);
+  border-bottom: 1px solid var(--color-grey-100);
+  flex-shrink: 0;
+  gap: var(--spacing-16);
+}
+
+.drawer-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.drawer-title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.drawer-subtitle {
+  margin: var(--spacing-4) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-500);
+}
+
+.drawer-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  flex-shrink: 0;
+}
+
+.drawer-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  color: var(--color-grey-400);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.drawer-close:hover {
+  background: var(--color-grey-50);
+  color: var(--color-text);
+}
+
+/* ─── Body ─── */
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-24);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 540px) {
+  .drawer-panel {
+    width: 100vw !important;
+  }
+}

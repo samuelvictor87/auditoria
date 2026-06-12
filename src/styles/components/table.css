@@ -1,0 +1,124 @@
+/* table.css */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background-color: var(--color-grey-50);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.table th {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-12) var(--spacing-16);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table td {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-700);
+  padding: var(--spacing-12) var(--spacing-16);
+  border-bottom: 1px solid var(--color-grey-100);
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-grey-50);
+}
+
+.table-row-clickable {
+  cursor: pointer;
+}
+
+/* Toolbar da tabela */
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-12);
+  margin-bottom: var(--spacing-16);
+  flex-wrap: wrap;
+}
+
+.table-toolbar-left,
+.table-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+}
+
+/* Paginação */
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-12) var(--spacing-16);
+  border-top: 1px solid var(--color-grey-200);
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-600);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-grey-200);
+  background-color: var(--color-surface);
+  color: var(--color-grey-600);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.pagination-btn:not(.pagination-btn-active):hover:not(:disabled) {
+  background-color: var(--color-grey-50);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pagination-btn-active {
+  background-color: var(--color-primary);
+  color: var(--color-primary-contrast);
+  border-color: var(--color-primary);
+}

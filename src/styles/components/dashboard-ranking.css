@@ -1,0 +1,541 @@
+/* =====================================================
+   DASHBOARD-RANKING.CSS — Dashboard de Ranking de Vendedores
+   CRM Dibracam — segue tokens.css
+   ===================================================== */
+
+/* ── Página ───────────────────────────────────────── */
+.rnk-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+
+
+
+
+/* ── Barra de filtros ─────────────────────────────── */
+.rnk-filters {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-16) var(--spacing-24);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-xs);
+}
+
+.rnk-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 120px;
+  flex: 1;
+}
+
+.rnk-filter-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rnk-select {
+  height: 38px;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: 0 var(--spacing-12);
+  font-size: var(--font-size-md);
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667085' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.rnk-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 26, 79, 0.1);
+}
+
+.rnk-input-date {
+  height: 38px;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: 0 var(--spacing-12);
+  font-size: var(--font-size-md);
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: border-color var(--transition-fast);
+  width: 100%;
+}
+
+.rnk-input-date:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(0, 26, 79, 0.1);
+}
+
+.rnk-filters-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-8);
+  padding-bottom: 1px;
+  flex-shrink: 0;
+}
+
+
+
+/* ── Estado inicial (pré-filtro) ──────────────────── */
+.rnk-initial-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-48) var(--spacing-24);
+  text-align: center;
+  gap: var(--spacing-16);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-grey-300);
+  border-radius: var(--radius-xl);
+  min-height: 320px;
+}
+
+.rnk-initial-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+}
+
+.rnk-initial-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.rnk-initial-desc {
+  font-size: var(--font-size-md);
+  color: var(--color-grey-500);
+  max-width: 420px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.rnk-initial-desc-link {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ── Pódio Top 3 ──────────────────────────────────── */
+.rnk-podium-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.rnk-podium-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.rnk-podium-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-48) 0 var(--spacing-16);
+  margin-top: var(--spacing-16);
+}
+
+.rnk-podium-base-shadow {
+  position: absolute;
+  bottom: 12px;
+  width: 500px;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.rnk-podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  z-index: 1;
+}
+
+/* Cartão de posição do pódio */
+.rnk-podium-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.rnk-podium-card.pos-1 {
+  order: 2;
+  z-index: 3;
+  width: 200px;
+}
+
+.rnk-podium-card.pos-2 {
+  order: 1;
+  z-index: 2;
+  width: 170px;
+}
+
+.rnk-podium-card.pos-3 {
+  order: 3;
+  z-index: 1;
+  width: 170px;
+}
+
+/* Wrapper do Avatar e Nome para ficarem posicionados "em cima" do degrau */
+.rnk-podium-avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-12);
+  margin-bottom: var(--spacing-16);
+  z-index: 10;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.12));
+}
+
+.rnk-podium-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 4px solid var(--color-surface);
+}
+
+.rnk-podium-card.pos-1 .rnk-podium-avatar {
+  width: 140px;
+  height: 140px;
+  border-color: #FBBF24; /* Ouro pastel para quebrar o fundo */
+}
+
+.rnk-podium-card.pos-2 .rnk-podium-avatar {
+  width: 110px;
+  height: 110px;
+  border-color: #CBD5E1;
+}
+
+.rnk-podium-card.pos-3 .rnk-podium-avatar {
+  width: 110px;
+  height: 110px;
+  border-color: #FDBA74; /* Laranja acobreado clareado */
+}
+
+.rnk-podium-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rnk-podium-avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--color-grey-400);
+}
+
+.rnk-podium-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.2;
+  max-width: 140px;
+  word-wrap: break-word;
+}
+
+/* O "Degrau" do podium */
+.rnk-podium-value-card {
+  width: 100%;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: none;
+}
+
+/* Base Dourada */
+.rnk-podium-card.pos-1 .rnk-podium-value-card {
+  height: 190px;
+  padding: var(--spacing-24) var(--spacing-16);
+  gap: var(--spacing-16);
+  background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%);
+  color: #fff;
+  border-color: #FCD34D;
+  box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.4), 0 -4px 20px rgba(245, 158, 11, 0.3);
+}
+
+/* Base Prateada */
+.rnk-podium-card.pos-2 .rnk-podium-value-card {
+  height: 150px;
+  padding: var(--spacing-24) var(--spacing-12);
+  gap: var(--spacing-12);
+  background: linear-gradient(180deg, #94A3B8 0%, #64748B 100%);
+  color: #fff;
+  border-color: #CBD5E1;
+  box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.3), 0 -4px 16px rgba(100, 116, 139, 0.2);
+}
+
+/* Base Bronze */
+.rnk-podium-card.pos-3 .rnk-podium-value-card {
+  height: 120px;
+  padding: var(--spacing-24) var(--spacing-12);
+  gap: var(--spacing-8);
+  background: linear-gradient(180deg, #D97706 0%, #B45309 60%, #92400E 100%);
+  color: #fff;
+  border-color: #FBBF24;
+  box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.2), 0 -4px 16px rgba(180, 83, 9, 0.2);
+}
+
+.rnk-podium-position-watermark {
+  position: absolute;
+  bottom: -20px;
+  right: 15px;
+  font-size: 140px;
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  font-style: italic;
+  font-family: inherit;
+}
+
+.rnk-podium-value {
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.rnk-podium-card.pos-1 .rnk-podium-value {
+  font-size: var(--font-size-xl);
+}
+
+.rnk-podium-card.pos-2 .rnk-podium-value {
+  font-size: var(--font-size-lg);
+}
+
+.rnk-podium-card.pos-3 .rnk-podium-value {
+  font-size: var(--font-size-md);
+}
+
+.rnk-podium-icon {
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.gold-icon { color: #FFFBEB; }
+.silver-icon { color: #F8FAFC; }
+.bronze-icon { color: #FEF3C7; }
+
+/* ── Tabela de Ranking ────────────────────────────── */
+.rnk-table-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.rnk-table-section-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+
+
+/* Coluna de posição */
+.rnk-col-pos {
+  width: 48px;
+  text-align: center;
+}
+
+/* Coluna de variação */
+.rnk-col-var {
+  width: 40px;
+  text-align: center;
+}
+
+/* Posição */
+.rnk-pos-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  background: var(--color-grey-100);
+  color: var(--color-grey-600);
+}
+
+.rnk-pos-badge.gold {
+  background: #EAB308;
+  color: #fff;
+}
+
+.rnk-pos-badge.silver {
+  background: #94A3B8;
+  color: #fff;
+}
+
+.rnk-pos-badge.bronze {
+  background: #B45309;
+  color: #fff;
+}
+
+/* Indicador de variação */
+.rnk-var-up {
+  color: var(--color-success);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rnk-var-down {
+  color: var(--color-destructive);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rnk-var-neutral {
+  color: var(--color-grey-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Célula de vendedor (avatar + nome) */
+.rnk-vendedor-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.rnk-vendedor-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-grey-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  color: var(--color-grey-400);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.rnk-vendedor-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rnk-vendedor-nome {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+/* Valores */
+.rnk-value-cell {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.rnk-pct-cell {
+  text-align: right;
+  color: var(--color-grey-600);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+/* Badge "Você" para vendedor */
+.rnk-you-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: var(--color-brand-50);
+  color: var(--color-primary);
+  border: 1px solid var(--color-brand-200);
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--font-weight-semibold);
+  margin-left: var(--spacing-8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Linha destacada do próprio vendedor */
+.table tr.rnk-row-self td {
+  background: var(--color-brand-50);
+}
+
+.table tr.rnk-row-self:hover td {
+  background: var(--color-brand-50);
+}
+
+/* ── Responsividade ───────────────────────────────── */
+@media (max-width: 900px) {
+  .rnk-podium {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rnk-podium-card.pos-1,
+  .rnk-podium-card.pos-2,
+  .rnk-podium-card.pos-3 {
+    transform: none;
+    order: unset;
+  }
+
+  .rnk-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,441 @@
+/* =====================================================
+   DASHBOARD-COMPARATIVO.CSS — Análise Comparativa Gerencial
+   CRM Dibracam — segue tokens.css
+   ===================================================== */
+
+/* ── Página ───────────────────────────────────────── */
+.cmp-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-32);
+}
+
+/* ── Filtros ──────────────────────────────────────── */
+.cmp-filters {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-16) var(--spacing-24);
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-xs);
+}
+
+.cmp-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 130px;
+  flex: 1;
+}
+
+.cmp-filter-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cmp-select,
+.cmp-input {
+  height: 38px;
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-md);
+  padding: 0 var(--spacing-12);
+  font-size: var(--font-size-md);
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+}
+
+.cmp-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23667085' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-color: var(--color-surface);
+  padding-right: var(--spacing-32);
+}
+
+.cmp-select:focus,
+.cmp-input:focus {
+  outline: none;
+  border-color: var(--color-brand-500);
+  box-shadow: 0 0 0 3px var(--color-brand-50);
+}
+
+.cmp-filter-divider {
+  width: 1px;
+  height: 38px;
+  background: var(--color-grey-200);
+  margin: 0 var(--spacing-4);
+}
+
+.cmp-filter-period-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  align-self: flex-end;
+  margin-bottom: 9px;
+}
+
+.cmp-filter-period-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  margin-right: 6px;
+}
+
+.cmp-filter-period-dot.p1 { background: var(--color-brand-300); }
+.cmp-filter-period-dot.p2 { background: var(--color-brand-700); }
+
+/* ── Insights Executivos ──────────────────────────── */
+.cmp-insights-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-12);
+}
+
+@media (max-width: 1200px) { .cmp-insights-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px)  { .cmp-insights-grid { grid-template-columns: 1fr; } }
+
+.cmp-insight-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--transition-fast);
+}
+
+.cmp-insight-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.cmp-insight-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cmp-insight-value {
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.cmp-insight-sub {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-500);
+}
+
+/* ── KPIs duplos (P1 vs P2) ───────────────────────── */
+.cmp-kpis-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-12);
+}
+
+@media (max-width: 1200px) { .cmp-kpis-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px)  { .cmp-kpis-grid { grid-template-columns: 1fr; } }
+
+.cmp-kpi-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--transition-fast);
+}
+
+.cmp-kpi-card:hover { box-shadow: var(--shadow-md); }
+
+.cmp-kpi-title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cmp-kpi-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.cmp-kpi-period-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-500);
+}
+
+.cmp-kpi-val-p2 {
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.cmp-kpi-val-p1 {
+  font-size: var(--font-size-md);
+  color: var(--color-grey-500);
+}
+
+/* ── Badge de variação ────────────────────────────── */
+.cmp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1;
+}
+
+.cmp-badge.up {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.cmp-badge.down {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.cmp-badge.neutral {
+  background: var(--color-grey-100);
+  color: var(--color-grey-600);
+}
+
+/* ── Seções com título ─────────────────────────────── */
+.cmp-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.cmp-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cmp-section-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.cmp-section-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-500);
+  margin-top: var(--spacing-2);
+}
+
+/* ── Gráfico ──────────────────────────────────────── */
+.cmp-chart-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-32);
+  box-shadow: var(--shadow-xs);
+}
+
+.cmp-chart-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-12);
+  margin-bottom: var(--spacing-16);
+}
+
+.cmp-chart-legend-item {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--spacing-24);
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-600);
+}
+
+.cmp-chart-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.cmp-chart-legend-dot.p1 { background: var(--color-brand-200); }
+.cmp-chart-legend-dot.p2 { background: var(--color-brand-600); }
+
+.cmp-chart-wrap {
+  height: 380px;
+  position: relative;
+}
+
+/* ── Abas ─────────────────────────────────────────── */
+.cmp-tabs {
+  display: flex;
+  gap: var(--spacing-2);
+  background: var(--color-grey-100);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-4);
+}
+
+.cmp-tab {
+  flex: 1;
+  padding: var(--spacing-10) var(--spacing-16);
+  min-height: 38px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-family-base);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+  background: transparent;
+  color: var(--color-grey-500);
+}
+
+.cmp-tab.active {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-xs);
+}
+
+/* ── Tabelas comparativas ─────────────────────────── */
+.cmp-table-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-grey-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.cmp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.cmp-table th {
+  padding: var(--spacing-12) var(--spacing-16);
+  text-align: left;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-grey-500);
+  background: var(--color-grey-50);
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.cmp-table td {
+  padding: var(--spacing-12) var(--spacing-16);
+  border-bottom: 1px solid var(--color-grey-100);
+  color: var(--color-text);
+  vertical-align: middle;
+}
+
+.cmp-table tr:last-child td { border-bottom: none; }
+
+.cmp-table tr:hover td { background: var(--color-grey-50); }
+
+.cmp-table td.right,
+.cmp-table th.right { text-align: right; }
+
+.cmp-table td.center,
+.cmp-table th.center { text-align: center; }
+
+.cmp-table-client-name {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Participação bar ─────────────────────────────── */
+.cmp-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.cmp-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--color-grey-100);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.cmp-bar-fill {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-brand-400);
+  transition: width 0.5s ease;
+}
+
+.cmp-bar-pct {
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-500);
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ── Empty / loading ──────────────────────────────── */
+.cmp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-64) 0;
+  gap: var(--spacing-12);
+  color: var(--color-grey-400);
+  text-align: center;
+}
+
+.cmp-empty-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-grey-500);
+}
+
+.cmp-empty-sub {
+  font-size: var(--font-size-sm);
+}
+
+/* ── Grid de duas colunas para tabelas ────────────── */
+.cmp-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-16);
+}
+
+@media (max-width: 1024px) { .cmp-two-col { grid-template-columns: 1fr; } }

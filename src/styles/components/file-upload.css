@@ -1,0 +1,147 @@
+/* =====================================================
+   FILE-UPLOAD.CSS — CRM Dibracam
+   ===================================================== */
+
+.file-upload-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+/* ─── Dropzone ─── */
+.file-upload-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-24);
+  border: 2px dashed var(--color-grey-300);
+  border-radius: var(--radius-lg);
+  background: var(--color-grey-50);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  text-align: center;
+}
+
+.file-upload-dropzone:hover,
+.file-upload-dragover {
+  border-color: var(--color-brand-400);
+  background: var(--color-brand-50);
+}
+
+.file-upload-dropzone.file-upload-error {
+  border-color: var(--color-destructive);
+}
+
+.file-upload-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.file-upload-icon {
+  color: var(--color-grey-400);
+}
+
+.file-upload-text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-grey-600);
+}
+
+.file-upload-text strong {
+  color: var(--color-primary);
+}
+
+.file-upload-hint {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-grey-400);
+}
+
+/* ─── File list ─── */
+.file-upload-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.file-upload-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-8) var(--spacing-12);
+  background: var(--color-grey-50);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.file-upload-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-upload-remove {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  color: var(--color-grey-400);
+  cursor: pointer;
+}
+
+.file-upload-remove:hover {
+  color: var(--color-destructive);
+}
+
+/* ─── Avatar variant ─── */
+.file-upload-avatar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.file-upload-avatar {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2px solid var(--color-grey-200);
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-grey-50);
+  color: var(--color-grey-400);
+}
+
+.file-upload-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.file-upload-avatar-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.file-upload-avatar:hover .file-upload-avatar-overlay {
+  opacity: 1;
+}

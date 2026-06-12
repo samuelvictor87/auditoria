@@ -1,0 +1,57 @@
+/* select.css */
+.select-field {
+  width: 100%;
+  height: var(--spacing-40);
+  padding: 0 var(--spacing-12);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-grey-300);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 256 256'%3E%3Cpath d='M213.66 101.66l-80 80a8 8 0 01-11.32 0l-80-80a8 8 0 0111.32-11.32L128 164.69l74.34-74.35a8 8 0 0111.32 11.32z' fill='%23667085'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-12) center;
+  padding-right: var(--spacing-40);
+  transition: border-color var(--transition-fast);
+}
+
+.select-field:focus {
+  border-color: var(--color-brand-400);
+  box-shadow: var(--shadow-xs);
+}
+
+.select-field:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-grey-50);
+}
+
+/* textarea */
+.textarea-field {
+  width: 100%;
+  min-height: 100px;
+  padding: var(--spacing-8) var(--spacing-12);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-grey-300);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-md);
+  color: var(--color-text);
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition-fast);
+  line-height: 1.5;
+}
+
+.textarea-field::placeholder {
+  color: var(--color-grey-400);
+}
+
+.textarea-field:focus {
+  border-color: var(--color-brand-400);
+  box-shadow: var(--shadow-xs);
+}

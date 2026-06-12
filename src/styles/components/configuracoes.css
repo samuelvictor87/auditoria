@@ -1,0 +1,145 @@
+/* styles/components/configuracoes.css */
+
+.configuracoes-page {
+  max-width: 900px;
+  background: transparent;
+}
+
+/* HEADER & TABS */
+.config-header {
+  margin-bottom: 24px;
+}
+
+.config-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-grey-900);
+  margin-bottom: 24px;
+}
+
+.config-tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--color-grey-200);
+}
+
+.config-tab-btn {
+  background: none;
+  border: none;
+  padding: 8px 0 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-grey-500);
+  cursor: pointer;
+  position: relative;
+  transition: color 0.2s;
+}
+
+.config-tab-btn:hover {
+  color: var(--color-grey-700);
+}
+
+.config-tab-btn.active {
+  color: var(--color-primary);
+}
+
+.config-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 2px 2px 0 0;
+}
+
+/* CONTENTS */
+.config-content {
+  background: none;
+}
+
+.config-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.config-section {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* very light shadow to separate from background */
+}
+
+.config-section-header {
+  margin-bottom: 32px;
+}
+
+.config-section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.config-section-header p {
+  font-size: 14px;
+  color: var(--color-grey-500);
+}
+
+.config-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ABA SENHA: Label no lado esquerdo */
+.config-password-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.password-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+
+.password-row label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* INPUTS & THIRD PARTY WIDGETS OVERRIDES */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+}
+
+/* React Select Label Fix */
+.react-select-container {
+  font-family: inherit;
+  font-size: 14px;
+}
+.password-row .input-wrapper {
+  margin-bottom: 0; /* zera as margens do wrapper do input normal caso existam */
+}
+
+.password-row .input-label {
+  display: none; /* removemos a label do próprio componente "Input" pois já usamos a label da linha */
+}
+
+/* FOOTER ACTIONS */
+.config-footer-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 16px;
+}
