@@ -1,7 +1,7 @@
 // pages/styleguide/sections/CardSection.tsx — CRM Dibracam
 import { StyleGuideSection, SubsectionTitle, Preview, CodeBlock } from '../StyleGuideSection';
 import { Card, KpiCard } from '../../../components/ui/Card';
-import { CurrencyDollar, Users, ChartLineUp, ShoppingCart, Briefcase, CheckSquare, Target, ArrowRight, TrendUp, TrendDown, ArrowUpRight, ChartBar } from '@phosphor-icons/react';
+import { CurrencyDollar, Users, ChartLineUp, ShoppingCart, Briefcase, ArrowRight, TrendUp, TrendDown, ArrowUpRight, ChartBar } from '@phosphor-icons/react';
 import { Button } from '../../../components/ui/Button';
 import { Input } from '../../../components/ui/Input';
 import '../../../styles/components/inicio.css';
