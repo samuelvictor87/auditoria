@@ -1,145 +1,194 @@
-/* styles/components/configuracoes.css */
+/* configuracoes.css */
 
-.configuracoes-page {
-  max-width: 900px;
-  background: transparent;
-}
-
-/* HEADER & TABS */
-.config-header {
-  margin-bottom: 24px;
-}
-
-.config-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--color-grey-900);
-  margin-bottom: 24px;
-}
-
-.config-tabs {
-  display: flex;
-  gap: 24px;
-  border-bottom: 1px solid var(--color-grey-200);
-}
-
-.config-tab-btn {
-  background: none;
-  border: none;
-  padding: 8px 0 12px 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--color-grey-500);
-  cursor: pointer;
-  position: relative;
-  transition: color 0.2s;
-}
-
-.config-tab-btn:hover {
-  color: var(--color-grey-700);
-}
-
-.config-tab-btn.active {
-  color: var(--color-primary);
-}
-
-.config-tab-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-primary);
-  border-radius: 2px 2px 0 0;
-}
-
-/* CONTENTS */
-.config-content {
-  background: none;
-}
-
-.config-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.config-section {
-  background: #ffffff;
-  border-radius: var(--radius-md);
-  padding: 32px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* very light shadow to separate from background */
-}
-
-.config-section-header {
-  margin-bottom: 32px;
-}
-
-.config-section-header h2 {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 4px;
-}
-
-.config-section-header p {
-  font-size: 14px;
-  color: var(--color-grey-500);
-}
-
-.config-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* ABA SENHA: Label no lado esquerdo */
-.config-password-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.password-row {
+.config-container {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  align-items: center;
-  gap: 16px;
+  grid-template-columns: 320px 1fr;
+  gap: var(--spacing-24);
+  width: 100%;
 }
 
-.password-row label {
-  font-size: 14px;
-  font-weight: 500;
+/* Painel de Modelos */
+.config-sidebar {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  height: fit-content;
+}
+
+.config-sidebar-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.config-modelos-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.config-modelo-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-12);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+  width: 100%;
+}
+
+.config-modelo-item:hover {
+  border-color: var(--color-primary);
+}
+
+.config-modelo-item-active {
+  border-color: var(--color-primary);
+  background-color: rgba(139, 92, 246, 0.08);
+}
+
+.config-modelo-item-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text);
 }
 
-/* INPUTS & THIRD PARTY WIDGETS OVERRIDES */
-.react-datepicker-wrapper {
+.config-modelo-item-status {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Painel de Perguntas / Edição */
+.config-main-panel {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-24);
+}
+
+.config-panel-header {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-16);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--spacing-12);
+}
+
+.config-panel-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.config-panel-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-4);
+  line-height: 1.5;
+}
+
+/* Lista de Perguntas */
+.config-perguntas-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.config-pergunta-card {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-16);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-16);
+}
+
+.config-pergunta-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  flex: 1;
+}
+
+.config-pergunta-texto {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.config-pergunta-ajuda {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.config-pergunta-exemplos {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-4);
+}
+
+.config-pergunta-actions {
+  display: flex;
+  gap: var(--spacing-8);
+}
+
+/* Formulários / Modais Simplificados */
+.modal-form-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-16);
+}
+
+.modal-form-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+  box-shadow: var(--shadow-lg);
 }
 
-.react-datepicker__input-container input {
-  width: 100%;
+.modal-form-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
 }
 
-/* React Select Label Fix */
-.react-select-container {
-  font-family: inherit;
-  font-size: 14px;
-}
-.password-row .input-wrapper {
-  margin-bottom: 0; /* zera as margens do wrapper do input normal caso existam */
-}
-
-.password-row .input-label {
-  display: none; /* removemos a label do próprio componente "Input" pois já usamos a label da linha */
-}
-
-/* FOOTER ACTIONS */
-.config-footer-actions {
+.modal-form-footer {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 0 16px;
+  gap: var(--spacing-12);
+  margin-top: var(--spacing-8);
+}
+
+@media (max-width: 900px) {
+  .config-container {
+    grid-template-columns: 1fr;
+  }
 }

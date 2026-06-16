@@ -24,7 +24,7 @@ body {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-regular);
   color: var(--color-text);
-  background-color: var(--color-grey-50);
+  background-color: var(--color-background);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -58,7 +58,7 @@ h4 {
 }
 
 p {
-  color: var(--color-grey-600);
+  color: var(--color-text-muted);
   line-height: 1.6;
 }
 
@@ -69,7 +69,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-brand-400);
+  color: var(--color-primary-hover);
 }
 
 img, svg {
@@ -100,16 +100,16 @@ ul, ol {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--color-grey-100);
+  background: var(--color-surface);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-grey-300);
+  background: var(--color-border);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-grey-400);
+  background: var(--color-primary);
 }
 
 /* ─── UTILITÁRIOS GLOBAIS ────────────────────────────── */

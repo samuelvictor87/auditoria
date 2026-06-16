@@ -5,7 +5,8 @@
   top: 0;
   bottom: 0;
   width: var(--sidebar-width);
-  background-color: var(--color-primary);
+  background-color: var(--color-surface);
+  border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   z-index: var(--z-sidebar);
@@ -14,17 +15,25 @@
 }
 
 .sidebar-logo {
-  padding: var(--spacing-32) var(--spacing-24) var(--spacing-24);
+  padding: var(--spacing-24) var(--spacing-24) var(--spacing-16);
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: var(--spacing-8);
 }
 
-.sidebar-logo img {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+.sidebar-logo-icon {
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-logo-text {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  letter-spacing: 0.5px;
 }
 
 .sidebar-nav {
@@ -39,22 +48,23 @@
 .sidebar-section-label {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: rgba(255,255,255,0.4);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: var(--spacing-8) var(--spacing-12) var(--spacing-4);
   margin-top: var(--spacing-8);
+  opacity: 0.5;
 }
 
 .sidebar-item {
   display: flex;
   align-items: center;
   gap: var(--spacing-12);
-  padding: var(--spacing-8) var(--spacing-12);
+  padding: var(--spacing-12) var(--spacing-12);
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: background-color var(--transition-fast);
-  color: rgba(255,255,255,0.7);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
@@ -66,13 +76,14 @@
 }
 
 .sidebar-item:hover {
-  background-color: rgba(255,255,255,0.08);
-  color: #FFFFFF;
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text);
 }
 
 .sidebar-item-active {
-  background-color: rgba(255,255,255,0.15);
-  color: #FFFFFF;
+  background-color: rgba(139, 92, 246, 0.15);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 .sidebar-item-icon {
@@ -84,45 +95,31 @@
   justify-content: center;
 }
 
-.sidebar-item-badge {
-  margin-left: auto;
-  background-color: var(--color-alert);
-  color: #FFFFFF;
-  font-size: 10px;
-  font-weight: var(--font-weight-bold);
-  min-width: 18px;
-  height: 18px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-}
-
 .sidebar-footer {
   padding: var(--spacing-16) var(--spacing-8);
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid var(--color-border);
 }
 
 .sidebar-user {
   display: flex;
   align-items: center;
-  gap: var(--spacing-8);
+  gap: var(--spacing-12);
   padding: var(--spacing-8) var(--spacing-12);
   border-radius: var(--radius-md);
+  background-color: var(--color-surface-secondary);
 }
 
 .sidebar-avatar {
   width: 32px;
   height: 32px;
   border-radius: var(--radius-full);
-  background-color: var(--color-brand-400);
+  background-color: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: #FFFFFF;
+  color: var(--color-primary-contrast);
   flex-shrink: 0;
 }
 
@@ -134,7 +131,7 @@
 .sidebar-user-name {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: rgba(255,255,255,0.9);
+  color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -142,8 +139,16 @@
 
 .sidebar-user-role {
   font-size: var(--font-size-xs);
-  color: rgba(255,255,255,0.5);
+  color: var(--color-text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  opacity: 0.8;
+}
+
+/* Responsividade Mobile - Ocultar Sidebar no Mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
 }

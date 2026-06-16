@@ -1,37 +1,36 @@
-import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Button } from './components/ui/Button';
-import { Card } from './components/ui/Card';
 import { ToastProvider } from './components/ui/Toast';
 import { StyleGuidePage } from './pages/styleguide/StyleGuidePage';
-
-function Home() {
-  return (
-    <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <Card>
-        <h1 style={{ marginBottom: '1rem', color: 'var(--color-primary)' }}>Mais Gestão</h1>
-        <p style={{ marginBottom: '2rem', color: 'var(--color-grey-500)' }}>
-          Projeto inicializado com sucesso na porta 3002!
-        </p>
-        <Button variant="primary" onClick={() => alert('Funcionando!')}>
-          Testar Componente
-        </Button>
-        <div style={{ marginTop: '2rem' }}>
-          <a href="/styleguide" style={{ color: 'var(--color-primary)', fontWeight: 600 }}>Ir para o Styleguide</a>
-        </div>
-      </Card>
-    </div>
-  );
-}
+import { LoginPage } from './pages/login/LoginPage';
+import AppLayout from './components/AppLayout';
+import { ResponderPage } from './pages/responder/ResponderPage';
+import { DashboardPage } from './pages/dashboard/DashboardPage';
+import { HistoricoPage } from './pages/historico/HistoricoPage';
+import { ConfiguracoesPage } from './pages/configuracoes/ConfiguracoesPage';
 
 export default function App() {
   return (
     <BrowserRouter>
       <ToastProvider>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Rota pública de login */}
+          <Route path="/login" element={<LoginPage />} />
+
+          {/* Rota do guia de estilos */}
           <Route path="/styleguide" element={<StyleGuidePage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+
+          {/* Rotas autenticadas envelopadas pelo AppLayout */}
+          <Route path="/app" element={<AppLayout />}>
+            <Route index element={<Navigate to="/app/responder" replace />} />
+            <Route path="responder" element={<ResponderPage />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="historico" element={<HistoricoPage />} />
+            <Route path="configuracoes" element={<ConfiguracoesPage />} />
+          </Route>
+
+          {/* Fallback de redirecionamento para o app */}
+          <Route path="/" element={<Navigate to="/app/responder" replace />} />
+          <Route path="*" element={<Navigate to="/app/responder" replace />} />
         </Routes>
       </ToastProvider>
     </BrowserRouter>

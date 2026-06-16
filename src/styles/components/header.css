@@ -6,7 +6,7 @@
   right: 0;
   height: var(--header-height);
   background-color: var(--color-surface);
-  border-bottom: 1px solid var(--color-grey-200);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,15 +22,15 @@
 }
 
 .header-title {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
   line-height: 1.2;
 }
 
 .header-subtitle {
-  font-size: var(--font-size-sm);
-  color: var(--color-grey-500);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
 }
 
 .header-right {
@@ -46,28 +46,17 @@
   width: 40px;
   height: 40px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-grey-200);
-  background-color: var(--color-surface);
-  color: var(--color-grey-600);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text-muted);
   cursor: pointer;
   transition: background-color var(--transition-fast), color var(--transition-fast);
   position: relative;
 }
 
 .header-icon-btn:hover {
-  background-color: var(--color-grey-50);
+  background-color: var(--color-border);
   color: var(--color-text);
-}
-
-.header-notif-dot {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 8px;
-  height: 8px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-destructive);
-  border: 2px solid var(--color-surface);
 }
 
 .header-avatar {
@@ -80,21 +69,16 @@
   justify-content: center;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: #FFFFFF;
+  color: var(--color-primary-contrast);
   cursor: pointer;
   flex-shrink: 0;
-  border: 2px solid var(--color-brand-200);
+  border: 2px solid var(--color-primary-hover);
 }
 
-.header-filial-badge {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-4);
-  padding: var(--spacing-4) var(--spacing-12);
-  background-color: var(--color-brand-50);
-  border: 1px solid var(--color-brand-200);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-primary);
+/* Responsividade Mobile - Header ocupa toda a largura */
+@media (max-width: 768px) {
+  .header {
+    left: 0;
+    padding: 0 var(--spacing-16);
+  }
 }

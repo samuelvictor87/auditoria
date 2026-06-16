@@ -1,0 +1,90 @@
+/* layout.css */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  position: relative;
+  transition: margin-left var(--transition-slow);
+}
+
+.content-container {
+  margin-top: var(--header-height);
+  padding: var(--main-content-padding);
+  max-width: var(--main-content-max-width);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--main-content-padding) + 20px);
+}
+
+/* Bottom Nav no Mobile */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  z-index: var(--z-header);
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 var(--spacing-8);
+}
+
+.mobile-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  flex: 1;
+  height: 100%;
+  transition: color var(--transition-fast);
+}
+
+.mobile-nav-item:hover {
+  color: var(--color-text);
+}
+
+.mobile-nav-item-active {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.mobile-nav-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .main-wrapper {
+    margin-left: 0;
+  }
+
+  .content-container {
+    padding: var(--spacing-16);
+    padding-bottom: 80px; /* Espaço para a bottom navigation */
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
+}

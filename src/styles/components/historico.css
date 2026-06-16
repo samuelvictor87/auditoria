@@ -1,0 +1,159 @@
+/* historico.css */
+
+.historico-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+  width: 100%;
+}
+
+/* Filtros */
+.historico-filters {
+  display: flex;
+  gap: var(--spacing-12);
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: var(--spacing-16);
+  border-radius: var(--radius-lg);
+  flex-wrap: wrap;
+}
+
+.filter-input, .filter-select {
+  background-color: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  outline: none;
+  font-family: inherit;
+  transition: border-color var(--transition-fast);
+}
+
+.filter-input:focus, .filter-select:focus {
+  border-color: var(--color-primary);
+}
+
+.filter-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Grid de Entradas do Histórico */
+.historico-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  margin-top: var(--spacing-12);
+}
+
+.historico-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-20) var(--spacing-24);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.historico-card:hover {
+  border-color: var(--color-primary);
+}
+
+.historico-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+}
+
+.historico-card-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.historico-card-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.historico-card-date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-surface-secondary);
+  padding: var(--spacing-4) var(--spacing-10);
+  border-radius: var(--radius-sm);
+}
+
+.historico-card-badge {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  padding: var(--spacing-4) var(--spacing-8);
+  border-radius: var(--radius-sm);
+  background-color: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+/* Detalhe das Respostas no Card Expansível */
+.historico-card-details {
+  margin-top: var(--spacing-16);
+  padding-top: var(--spacing-16);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.detalhe-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.detalhe-pergunta {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+.detalhe-resposta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  line-height: 1.5;
+  background-color: var(--color-surface-secondary);
+  padding: var(--spacing-12);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+  white-space: pre-wrap;
+}
+
+.delete-card-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.delete-card-btn:hover {
+  color: var(--color-destructive);
+  background-color: var(--color-surface-secondary);
+}
+
+@media (max-width: 768px) {
+  .historico-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
