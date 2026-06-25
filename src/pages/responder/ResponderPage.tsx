@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { supabase } from '../../lib/supabase';
 import { Button } from '../../components/ui/Button';
 import { useToast } from '../../components/ui/Toast';
+import { Modal } from '../../components/ui/Modal';
 import { 
   Calendar, 
   CaretDown, 
@@ -9,7 +10,9 @@ import {
   CheckCircle, 
   Clock, 
   ArrowLeft,
-  Question
+  Question,
+  Microphone,
+  Sparkle
 } from '@phosphor-icons/react';
 import '../../styles/components/responder.css';
 import '../../styles/components/input.css';
@@ -61,6 +64,16 @@ export function ResponderPage() {
   const [loadingForm, setLoadingForm] = useState(false);
   const [exibirExemplos, setExibirExemplos] = useState<Record<string, boolean>>({});
 
+  // Estados para gravação de áudio e IA
+  const [gravandoId, setGravandoId] = useState<string | null>(null);
+  const [tempoGravacao, setTempoGravacao] = useState(0);
+  const [loadingIA, setLoadingIA] = useState<Record<string, 'transcrevendo' | 'resumindo' | null>>({});
+  const [revisaoIA, setRevisaoIA] = useState<{ respostaId: string; textoOriginal: string; textoMelhorado: string } | null>(null);
+  
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
+  const intervaloTempoRef = useRef<any>(null);
+
   // Status de salvamento: 'salvo' | 'digitando' | 'salvando' | 'erro'
   const [saveStatus, setSaveStatus] = useState<'salvo' | 'digitando' | 'salvando' | 'erro'>('salvo');
   const timeoutsRef = useRef<Record<string, any>>({});
@@ -81,6 +94,13 @@ export function ResponderPage() {
         clearTimeout(timeoutsRef.current[id]);
         salvarRespostaImediata(id, respostasPendentesRef.current[id]);
       });
+      // Limpar timer de gravação e parar media recorder se estiver gravando
+      if (intervaloTempoRef.current) {
+        clearInterval(intervaloTempoRef.current);
+      }
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+        mediaRecorderRef.current.stop();
+      }
     };
   }, []);
 
@@ -281,6 +301,155 @@ export function ResponderPage() {
     }));
   };
 
+  // Iniciar gravação de áudio
+  const iniciarGravacao = async (respostaId: string) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorderRef.current = mediaRecorder;
+      audioChunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorder.onstop = async () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onloadend = async () => {
+          const base64Audio = (reader.result as string).split(',')[1];
+          await processarTranscricao(respostaId, base64Audio);
+        };
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorder.start();
+      setGravandoId(respostaId);
+      setTempoGravacao(0);
+      
+      if (intervaloTempoRef.current) clearInterval(intervaloTempoRef.current);
+      intervaloTempoRef.current = setInterval(() => {
+        setTempoGravacao(prev => prev + 1);
+      }, 1000);
+    } catch (err) {
+      console.error('Erro ao acessar microfone:', err);
+      toast.error('Erro de acesso', 'Não foi possível acessar o microfone. Verifique as permissões.');
+    }
+  };
+
+  // Parar gravação de áudio
+  const pararGravacao = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+    }
+    setGravandoId(null);
+    if (intervaloTempoRef.current) {
+      clearInterval(intervaloTempoRef.current);
+      intervaloTempoRef.current = null;
+    }
+  };
+
+  // Enviar áudio para a Edge Function
+  const processarTranscricao = async (respostaId: string, base64Audio: string) => {
+    setLoadingIA(prev => ({ ...prev, [respostaId]: 'transcrevendo' }));
+    try {
+      const { data, error } = await supabase.functions.invoke('ia-auditoria', {
+        body: { action: 'transcribe', audio: base64Audio, format: 'webm' }
+      });
+
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      if (data?.text) {
+        // Substituir totalmente o texto atual e disparar autosave
+        handleTextareaChange(respostaId, data.text);
+        toast.success('Áudio transcrito', 'O áudio foi transcrito com sucesso!');
+      } else {
+        toast.warning('Transcrição vazia', 'Não foi possível detectar falas no áudio.');
+      }
+    } catch (err: any) {
+      console.error('Erro ao transcrever áudio:', err);
+      let msg = err.message || 'Falha ao processar o áudio com IA.';
+      if (err.context) {
+        try {
+          const body = await err.context.json();
+          if (body?.error?.message) msg = body.error.message;
+          else if (body?.error) msg = body.error;
+        } catch (_) {}
+      }
+      toast.error('Erro na transcrição', msg);
+    } finally {
+      setLoadingIA(prev => ({ ...prev, [respostaId]: null }));
+    }
+  };
+
+  // Solicitar resumo/refinamento com Gemini no Open Router
+  const processarResumo = async (respostaId: string, textoAtual: string) => {
+    if (!textoAtual.trim()) return;
+    
+    setLoadingIA(prev => ({ ...prev, [respostaId]: 'resumindo' }));
+    try {
+      const { data, error } = await supabase.functions.invoke('ia-auditoria', {
+        body: { action: 'summarize', text: textoAtual }
+      });
+
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      if (data?.text) {
+        // Abrir modal de revisão
+        setRevisaoIA({
+          respostaId,
+          textoOriginal: textoAtual,
+          textoMelhorado: data.text
+        });
+      } else {
+        toast.warning('Melhoria vazia', 'A IA não retornou alterações para este texto.');
+      }
+    } catch (err: any) {
+      console.error('Erro ao aprimorar texto:', err);
+      let msg = err.message || 'Falha ao processar a melhoria do texto.';
+      if (err.context) {
+        try {
+          const body = await err.context.json();
+          if (body?.error?.message) msg = body.error.message;
+          else if (body?.error) msg = body.error;
+        } catch (_) {}
+      }
+      toast.error('Erro com IA', msg);
+    } finally {
+      setLoadingIA(prev => ({ ...prev, [respostaId]: null }));
+    }
+  };
+
+  const aceitarRevisao = () => {
+    if (!revisaoIA) return;
+    handleTextareaChange(revisaoIA.respostaId, revisaoIA.textoMelhorado);
+    setRevisaoIA(null);
+    toast.success('Texto aprimorado', 'A resposta foi atualizada com a versão da IA!');
+  };
+
+  const refazerRevisao = async () => {
+    if (!revisaoIA) return;
+    const { respostaId, textoOriginal } = revisaoIA;
+    setRevisaoIA(null);
+    await processarResumo(respostaId, textoOriginal);
+  };
+
+  const cancelarRevisao = () => {
+    setRevisaoIA(null);
+  };
+
+  // Formatar tempo (segundos) para mm:ss
+  const formatarTempo = (segundos: number) => {
+    const mins = Math.floor(segundos / 60);
+    const secs = segundos % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
   // Formatar data para exibição amigável
   const formatarDataAmigavel = (dataStr: string) => {
     const partes = dataStr.split('-');
@@ -442,19 +611,62 @@ export function ResponderPage() {
 
                 return (
                   <div key={resposta.id} className="pergunta-field-group">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', flexWrap: 'wrap' }}>
                       <span className="pergunta-texto">{resposta.texto_pergunta_snapshot}</span>
                       
-                      {exemplos.length > 0 && (
-                        <button 
-                          className="exemplos-toggle-btn" 
-                          onClick={() => toggleExemplos(resposta.id)}
-                        >
-                          <Question size={14} />
-                          {aberto ? 'Fechar exemplos' : 'Ver exemplos'}
-                          {aberto ? <CaretUp size={12} /> : <CaretDown size={12} />}
-                        </button>
-                      )}
+                      <div className="pergunta-actions-group">
+                        {/* Botão de Gravação de Áudio */}
+                        {entradaAtiva?.status !== 'concluido' && (
+                          <button
+                            type="button"
+                            className={`ia-action-btn record-btn ${gravandoId === resposta.id ? 'recording-active' : ''}`}
+                            onClick={() => gravandoId === resposta.id ? pararGravacao() : iniciarGravacao(resposta.id)}
+                            disabled={loadingIA[resposta.id] !== undefined && loadingIA[resposta.id] !== null}
+                            title={gravandoId === resposta.id ? 'Parar gravação' : 'Gravar resposta por áudio'}
+                          >
+                            <Microphone size={16} weight={gravandoId === resposta.id ? 'fill' : 'regular'} />
+                            {gravandoId === resposta.id ? (
+                              <span className="record-timer">{formatarTempo(tempoGravacao)}</span>
+                            ) : (
+                              <span>Falar</span>
+                            )}
+                          </button>
+                        )}
+
+                        {/* Botão de Melhorar/Resumir com IA */}
+                        {entradaAtiva?.status !== 'concluido' && resposta.texto_resposta.trim().length > 0 && (
+                          <button
+                            type="button"
+                            className="ia-action-btn ai-enhance-btn"
+                            onClick={() => processarResumo(resposta.id, resposta.texto_resposta)}
+                            disabled={(loadingIA[resposta.id] !== undefined && loadingIA[resposta.id] !== null) || gravandoId !== null}
+                            title="Aprimorar e estruturar resposta com IA"
+                          >
+                            <Sparkle size={16} weight="fill" />
+                            <span>Melhorar</span>
+                          </button>
+                        )}
+
+                        {/* Indicador de processamento da IA */}
+                        {loadingIA[resposta.id] && (
+                          <span className="ia-loading-indicator">
+                            <span className="ia-loading-spinner" />
+                            {loadingIA[resposta.id] === 'transcrevendo' ? 'Transcrevendo...' : 'Aprimorando...'}
+                          </span>
+                        )}
+
+                        {exemplos.length > 0 && (
+                          <button 
+                            type="button"
+                            className="exemplos-toggle-btn" 
+                            onClick={() => toggleExemplos(resposta.id)}
+                          >
+                            <Question size={14} />
+                            {aberto ? 'Fechar exemplos' : 'Ver exemplos'}
+                            {aberto ? <CaretUp size={12} /> : <CaretDown size={12} />}
+                          </button>
+                        )}
+                      </div>
                     </div>
 
                     {resposta.texto_ajuda_snapshot && (
@@ -484,7 +696,7 @@ export function ResponderPage() {
                       placeholder="Comece a escrever aqui... Pressione Enter para novas linhas."
                       value={resposta.texto_resposta}
                       onChange={(e) => handleTextareaChange(resposta.id, e.target.value)}
-                      disabled={entradaAtiva?.status === 'concluido'}
+                      disabled={entradaAtiva?.status === 'concluido' || (loadingIA[resposta.id] !== undefined && loadingIA[resposta.id] !== null) || gravandoId === resposta.id}
                     />
                   </div>
                 );
@@ -509,6 +721,47 @@ export function ResponderPage() {
           )}
         </div>
       )}
+
+      {/* Modal de Revisão da IA */}
+      <Modal
+        open={revisaoIA !== null}
+        onClose={cancelarRevisao}
+        title="Revisar Melhoria com IA"
+        size="lg"
+        footer={
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end', width: '100%' }}>
+            <Button variant="secondary" onClick={cancelarRevisao}>
+              Descartar
+            </Button>
+            <Button variant="secondary" onClick={refazerRevisao} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <ArrowLeft size={16} /> Tentar Novamente
+            </Button>
+            <Button variant="primary" onClick={aceitarRevisao} style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <CheckCircle size={16} weight="bold" /> Aceitar e Substituir
+            </Button>
+          </div>
+        }
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', minWidth: '280px' }}>
+          <div>
+            <span style={{ fontSize: '11px', textTransform: 'uppercase', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block', marginBottom: '8px' }}>
+              Texto Original
+            </span>
+            <div style={{ padding: '16px', borderRadius: 'var(--radius-md)', backgroundColor: 'var(--color-surface-secondary)', border: '1px solid var(--color-border)', minHeight: '150px', maxHeight: '300px', overflowY: 'auto', whiteSpace: 'pre-wrap', fontSize: 'var(--font-size-md)', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+              {revisaoIA?.textoOriginal}
+            </div>
+          </div>
+
+          <div>
+            <span style={{ fontSize: '11px', textTransform: 'uppercase', fontWeight: 700, color: 'var(--color-primary)', display: 'block', marginBottom: '8px' }}>
+              Versão Melhorada (IA em 1ª Pessoa)
+            </span>
+            <div style={{ padding: '16px', borderRadius: 'var(--radius-md)', backgroundColor: 'rgba(139, 92, 246, 0.05)', border: '1px solid var(--color-primary)', minHeight: '150px', maxHeight: '300px', overflowY: 'auto', whiteSpace: 'pre-wrap', fontSize: 'var(--font-size-md)', color: 'var(--color-text)', lineHeight: 1.6 }}>
+              {revisaoIA?.textoMelhorado}
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
